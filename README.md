@@ -1,6 +1,6 @@
 # Test Project | Match Invaders 
 
-*Test project for applicants*: Requires **Unity 2019.2.8f1**. 
+*Test project for applicants*: Requires **Unity 2019.4.5f1**. 
 
 ## Goal 
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Loading game!");
         yield return new WaitForSeconds(.4f);
-        SceneManager.LoadScene(sceneName);
+        EditorSceneManager.LoadScene(sceneName);
     }
 }

@@ -1,14 +1,6 @@
 name: Conflict Finder
 
-on:
-    pull_request:
-      types: [
-        'opened',
-        'synchronize'
-      ]
-    push:
-      branches:
-        - develop
+on: push
 
 jobs:
   merge_conflict_job:

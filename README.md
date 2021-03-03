@@ -27,15 +27,15 @@ Remember to read both this *README* and the *REQUIREMENTS* before starting to wo
 - Clone this repository. 
 - Develop as you would do in a normal project. 
 - Do not use copyright/third party libraries. 
-- Upload this project to a public or private repository in your account and invite [Bullrich](http://github.com/bullrich/) to it. 
+- Upload this project to a public or private repository in your account and invite [Gottfried Eibner](https://github.com/gogemx) to it. 
 
 ## Delivery 
 
 ### Before implementation 
 
 - Split the requirements into sub tasks and estimate the time it would take for each one. 
-- Inform  <javier.bullrich@innerspace.eu> about the estimations. 
-- Optionally, contact Javier Bullrich for requirements clarification. 
+- Inform  <gottfried.eibner@innerspace.eu> about the estimations. 
+- Optionally, contact Gottfried Eibner for requirements clarification. 
 
 ### Implementation 
 
@@ -46,7 +46,7 @@ Remember to read both this *README* and the *REQUIREMENTS* before starting to wo
 - Comment the execution time for each issue closed. You can also add some extra information explaining why a task took less or more time than the estimated.
 - Review the project (what you learn, where you struggle, what you liked from what you did, if we should pay attention on a particular piece of the project). You can use the *Review.md* for this. 
 - Tag the final commit as "Release" and [upload the build to the GitHub releases page](https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository).  
-- Inform Javier Bullrich of the finished projects. 
+- Inform Gottfried Eibner of the finished projects. 
 
 ## Evaluation criteria 
 
@@ -63,4 +63,4 @@ Remember to read both this *README* and the *REQUIREMENTS* before starting to wo
 
 --- 
 
-Questions at any time to <javier.bullrich@innerspace.eu>
+Questions at any time to <gottfried.eibner@innerspace.eu>

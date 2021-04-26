@@ -34,7 +34,7 @@ Remember to read both this *README* and the *REQUIREMENTS* before starting to wo
 ### Before implementation 
 
 - Split the requirements into sub tasks and estimate the time it would take for each one. 
-- Inform  <gottfried.eibner@innerspace.eu> about the estimations. 
+- Send an email to <gottfried@innerspace.recruitee.com> with your estimations. 
 - Optionally, contact Gottfried Eibner for requirements clarification. 
 
 ### Implementation 

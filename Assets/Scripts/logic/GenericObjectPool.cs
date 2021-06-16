@@ -9,6 +9,7 @@ namespace Match_Invaders.Logic
 		private readonly Stack<T> _stashedObjectStack = new Stack<T>();
 		private readonly LinkedList<T> _activeList = new LinkedList<T>(); // faster removal of nodes
 		public T Prototype;
+		public int ActiveObjectsCount => _activeList.Count;
 
 		public GenericObjectPool(T proto) => Prototype = proto;
 		public T ProvideObject(Transform parent, Vector3 position, bool shouldBeEnabled)

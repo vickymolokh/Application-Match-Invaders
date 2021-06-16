@@ -14,6 +14,10 @@ public class BattleConfiguration : ScriptableObject
 
 	[Range(1,3)]
 	public int PlayerHP = 3;
+	[Range(0f, 100f)]
+	public float MinPlayerShootDelay = 0.5f;
+	[Range(0.001f, 100f)]
+	public float PlayerProjectileSpeed;
 	[Range(1,100)]
 	public int ProtectorHP = 5;
 	[Range(0, 100)]
@@ -39,5 +43,13 @@ public class BattleConfiguration : ScriptableObject
 	[Range(0f,100f)]
 	public float EnemyTopSpeed = 1;
 
-	
+	[Range(0f, 100f)]
+	public float MinEnemyShootDelay = 0.5f;
+	[Range(0f, 100f)]
+	public float MaxEnemyShootDelay = 2f;
+
+	[Range(0.001f, 100f)]
+	public float EnemyProjectileSpeed;
+	[Range(0, 100)]
+	public int MaxActiveEnemyProjectiles;
 }

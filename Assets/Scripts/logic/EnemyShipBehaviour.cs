@@ -8,6 +8,7 @@ namespace Match_Invaders.Logic
 	{
 		[SerializeField]
 		private readonly List<GameObject> _variantModels = new List<GameObject>();
+		internal int hp;
 
 		public void RandomiseActiveVariantModel()
 		{

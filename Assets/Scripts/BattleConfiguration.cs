@@ -25,7 +25,7 @@ public class BattleConfiguration : ScriptableObject
 	[Range(1f, 100f)]
 	public float BattlefieldWidth = 20;
 	[Range(1f, 100f)]
-	public float battlefieldHeight = 20;
+	public float BattlefieldHeight = 20;
 	[Range(1,100)]
 	public int FleetRows = 6;
 	[Range(1,100)]

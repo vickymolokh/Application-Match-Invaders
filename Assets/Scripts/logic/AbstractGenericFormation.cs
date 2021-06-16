@@ -7,7 +7,7 @@ namespace Match_Invaders.Logic
 		public bool IsFilled => _coordMap.Values.Count > 0;
 		public IReadOnlyCollection<TPrototype> Members => _coordMap.Values;
 		GenericObjectPool<TPrototype> Pool;
-		private readonly Dictionary<Vector2Int, TPrototype> _coordMap = new Dictionary<Vector2Int, TPrototype>();
+		protected readonly Dictionary<Vector2Int, TPrototype> _coordMap = new Dictionary<Vector2Int, TPrototype>();
 		public static TImplementation InstantiateFormationOrigin(Vector3 originPosition, TPrototype prototype, string formationName = "Formation")
 		{
 			GameObject obj = new GameObject(formationName);

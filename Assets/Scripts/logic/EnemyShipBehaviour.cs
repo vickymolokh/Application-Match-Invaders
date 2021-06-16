@@ -15,17 +15,19 @@ namespace Match_Invaders.Logic
 			SetActiveVariantModel(randomIndex);
 		}
 
-		public void SetActiveVariantModel(int index)
+		public int VariantModelIndex { get; private set; } = -1;
+		public void SetActiveVariantModel(int modelIndexToSet)
 		{
-			if (index<=0 || index>= _variantModels.Count)
+			if (modelIndexToSet<=0 || modelIndexToSet>= _variantModels.Count)
 			{
-				throw new System.ArgumentOutOfRangeException($"index {index} is outside range 0..{_variantModels.Count}");
+				throw new System.ArgumentOutOfRangeException($"index {modelIndexToSet} is outside range 0..{_variantModels.Count}");
 			}
 			for (int i = 0; i < _variantModels.Count; i++)
 			{
 				GameObject model = _variantModels[i];
-				model.SetActive(index == i);
+				model.SetActive(modelIndexToSet == i);
 			}
+			VariantModelIndex = modelIndexToSet;
 		}
 	}
 }

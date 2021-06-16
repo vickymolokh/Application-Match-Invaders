@@ -5,6 +5,8 @@ namespace Match_Invaders.Logic
 	{
 
 		int _hitPointsToSet;
+
+		public void FillBasedOnConfig(BattleConfiguration _config) => FillBasedOnConfigData(_config.BattlefieldWidth, _config.BattlefieldHeight, _config.FleetFormationInterval, _config.ProtectorCount, _config.ProtectorHP);
 		public void FillBasedOnConfigData(float boundsWidth, float boundsHeight, float mainGridInterval, int count, int hitPoints)
 		{
 			ClearFormation();

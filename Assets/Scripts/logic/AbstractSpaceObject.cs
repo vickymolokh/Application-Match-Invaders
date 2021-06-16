@@ -1,27 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
 
 namespace Match_Invaders.Logic
 {
-	[RequireComponent(typeof(Rigidbody))]
-	public abstract class AbstractSpaceObject<TConcreteImplementation> : MonoBehaviour where TConcreteImplementation : AbstractSpaceObject<TConcreteImplementation>
+	public abstract class AbstractSpaceObject<TConcreteImplementation> : MonoBehaviour, IDamageable where TConcreteImplementation : AbstractSpaceObject<TConcreteImplementation>
 	{
 		public int HP { get; set; } = 1;
 		public Affiliations Affiliation; // not a property for ease of assignment in inspector
-		public delegate void CollisionEvent(AbstractSpaceObject<TConcreteImplementation> sender, Collision collision);
-		public event CollisionEvent OnCollision;
+		public Affiliations GetAffiliation() => Affiliation; // this is for the interface
 		public delegate void EventWithConcreteSender(TConcreteImplementation sender);
 		public event EventWithConcreteSender OnHPChangedDueToDamage;
 		public event EventWithConcreteSender OnKilled;
+		public ICollisionDamageLogic CollisionDamageLogic = new StandardCollisionDamageLogic(); // default; can be changed if we ever need objects with different collision logic.
+		public IExplosionPool ExplosionProvider; // can be added as needed externally
 
-		public void OnCollisionEnter(Collision collision) => OnCollision?.Invoke(this, collision);
-
-		public Vector3 Velocity
+		public void OnTriggerEnter(Collider otherCollider)
 		{
-			get => GetComponent<Rigidbody>().velocity;
-			set => GetComponent<Rigidbody>().velocity = value;
+			if (null != CollisionDamageLogic)
+			{
+				CollisionDamageLogic.HandleCollisionEvent(this, otherCollider);
+			}
 		}
 		public void ApplyDamage(int damage)
 		{
@@ -33,6 +30,7 @@ namespace Match_Invaders.Logic
 			OnHPChangedDueToDamage?.Invoke((TConcreteImplementation)this);
 			if (HP <= 0)
 			{
+				ExplosionProvider?.ExplodeHere(transform.position);
 				OnKilled?.Invoke((TConcreteImplementation)this);
 			}
 		}

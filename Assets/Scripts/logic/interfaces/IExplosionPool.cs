@@ -3,5 +3,6 @@
 	public interface IExplosionPool
 	{
 		public Explosion ExplodeHere(UnityEngine.Vector3 position);
+		public void DestroyAllPoolObjects();
 	}
 }

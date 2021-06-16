@@ -15,6 +15,7 @@ namespace Match_Invaders.Logic
 		{
 			_fleetFormation = fleetFormation;
 			_config = config;
+			ProjectilePool = new GenericObjectPool<Projectile>(config.EnemyProjectilePrefab);
 		}
 
 		public void TryShoot()
@@ -31,8 +32,17 @@ namespace Match_Invaders.Logic
 		private void DoShoot()
 		{
 			Vector3 origin = _fleetFormation.GetRandomFrontlineShip().transform.position;
-			ProjectilePool.ProvideObject(null, origin, true).Velocity = Vector3.down * _config.EnemyProjectileSpeed;
-			_nextShotAllowedTime = Time.time + UnityEngine.Random.Range(_config.MinEnemyShootDelay, _config.MaxEnemyShootDelay);
+			Projectile projectile = ProjectilePool.ProvideObject(null, origin, true);
+			projectile.ReturnToPool = ProjectilePool;
+			projectile.Config = _config;
+			projectile.Velocity = Vector3.back * _config.EnemyProjectileSpeed;
+			projectile.HP = _config.EnemyProjectileDamage;
+			_nextShotAllowedTime = Time.time + Random.Range(_config.MinEnemyShootDelay, _config.MaxEnemyShootDelay);
+		}
+
+		public void DestroyAllProjectiles()
+		{
+			ProjectilePool.DestroyAllPoolObjects();
 		}
 	}
 }

@@ -40,6 +40,10 @@ namespace Match_Invaders.Logic
 
 		public void MaintainMovement()
 		{
+			if (LiveShips().Count() <= 0)
+			{
+				return;
+			}
 			float boundsXOffset = _config.BattlefieldWidth / 2f;
 			switch (_movementState)
 			{
@@ -112,8 +116,8 @@ namespace Match_Invaders.Logic
 		private void AutoChooseMovementDirection()
 		{
 			_verticalDestination = null; // reset this
-			float rightBoundDistance = RightmostShipX() - (_config.BattlefieldWidth / 2f);
-			float leftBoundDistance = LeftmostShipX() + (_config.BattlefieldWidth / 2f);
+			float rightBoundDistance = Mathf.Abs(RightmostShipX() - (_config.BattlefieldWidth / 2f));
+			float leftBoundDistance = Mathf.Abs(LeftmostShipX() + (_config.BattlefieldWidth / 2f));
 			if (leftBoundDistance > rightBoundDistance) // tiebreaker, so no case for equals
 			{
 				_movementState = MoveCycle.MoveLeft;

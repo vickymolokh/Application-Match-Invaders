@@ -4,9 +4,8 @@ namespace Match_Invaders.Logic
 {
 	public abstract class AbstractGenericFormation<TPrototype, TImplementation> : MonoBehaviour where TPrototype : MonoBehaviour where TImplementation : AbstractGenericFormation<TPrototype, TImplementation>
 	{
-		public bool IsFilled => _coordMap.Values.Count > 0;
 		public IReadOnlyCollection<TPrototype> Members => _coordMap.Values;
-		GenericObjectPool<TPrototype> Pool;
+		protected GenericObjectPool<TPrototype> Pool;
 		protected readonly Dictionary<Vector2Int, TPrototype> _coordMap = new Dictionary<Vector2Int, TPrototype>();
 		public static TImplementation InstantiateFormationOrigin(Vector3 originPosition, TPrototype prototype, string formationName = "Formation")
 		{
@@ -22,12 +21,12 @@ namespace Match_Invaders.Logic
 			ClearFormation();
 			for (int xGridCoord = 0; xGridCoord < gridSize.x; xGridCoord++)
 			{
-				for (int yGridCoord = 0; yGridCoord < gridSize.y; yGridCoord++)
+				for (int yzGridCoord = 0; yzGridCoord < gridSize.y; yzGridCoord++)
 				{
-					Vector3 pos = transform.position + new Vector3(xGridCoord * interval, yGridCoord * interval);
+					Vector3 pos = transform.position + new Vector3(xGridCoord * interval, 0, yzGridCoord * interval);
 					TPrototype spawn = Pool.ProvideObject(transform, pos, true).GetComponent<TPrototype>();
 					PostProcessSpawnedObject(spawn);
-					_coordMap.Add(new Vector2Int(xGridCoord, yGridCoord), spawn);
+					_coordMap.Add(new Vector2Int(xGridCoord, yzGridCoord), spawn);
 				}
 			}
 		}
@@ -40,6 +39,12 @@ namespace Match_Invaders.Logic
 				Pool.StashUnusedObject(oldSpawn);
 			}
 			_coordMap.Clear();
+		}
+
+		public void DestroyAllPoolObjects()
+		{
+			ClearFormation();
+			Pool.DestroyAllPoolObjects();
 		}
 
 		protected virtual void PostProcessSpawnedObject(TPrototype spawn)

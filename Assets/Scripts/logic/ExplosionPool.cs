@@ -4,7 +4,6 @@ namespace Match_Invaders.Logic
 {
 	public class ExplosionPool : GenericObjectPool<Explosion>, IExplosionPool
 	{
-
 		public ExplosionPool(Explosion prototype) : base(prototype) { }
 
 		public Explosion ExplodeHere(Vector3 position)
@@ -19,5 +18,6 @@ namespace Match_Invaders.Logic
 			StashUnusedObject(sender);
 			sender.OnExpired -= RecycleExplosion;
 		}
+
 	}
 }

@@ -31,23 +31,36 @@ namespace Match_Invaders.Logic
 			}
 		}
 
-		public void StashUnusedObject(T obj)
+		public void StashUnusedObject(T element)
 		{
-			if (null == obj)
+			if (null == element)
 			{
 				throw new ArgumentNullException("Passed null object to object pool for stashing");
 			}
-			if (_stashedObjectStack.Contains(obj))
+			if (_stashedObjectStack.Contains(element))
 			{
 				throw new ArgumentException("Chosen object already stashed");
 			}
-			if (!_activeList.Contains(obj))
+			if (!_activeList.Contains(element))
 			{
 				throw new ArgumentException("Chosen object is not part of this pool");
 			}
-			obj.gameObject.SetActive(false);
-			_activeList.Remove(obj);
-			_stashedObjectStack.Push(obj);
+			element.gameObject.SetActive(false);
+			_activeList.Remove(element);
+			_stashedObjectStack.Push(element);
+		}
+
+		public virtual void DestroyAllPoolObjects()
+		{
+			foreach (T activeElement in _activeList)
+			{
+				UnityEngine.Object.Destroy(activeElement.gameObject);
+			}
+			_activeList.Clear();
+			while(_stashedObjectStack.Count>0)
+			{
+				UnityEngine.Object.Destroy(_stashedObjectStack.Pop());
+			}
 		}
 	}
 }

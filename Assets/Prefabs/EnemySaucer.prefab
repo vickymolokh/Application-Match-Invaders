@@ -900,6 +900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5366829318879391163}
+  - component: {fileID: -5924073814913709672}
   - component: {fileID: 5366829318879391160}
   - component: {fileID: 5366829318879391161}
   - component: {fileID: 5366829318879391158}
@@ -926,6 +927,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5924073814913709672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366829318879391159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8719431e13bfbd04fae2e7170c61ae13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 3
+  _variantModels:
+  - {fileID: 5366829319728553234}
+  - {fileID: 5366829320117568540}
+  - {fileID: 5366829319652350543}
+  - {fileID: 5366829319467727206}
 --- !u!33 &5366829318879391160
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -983,7 +1002,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5366829318879391159}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

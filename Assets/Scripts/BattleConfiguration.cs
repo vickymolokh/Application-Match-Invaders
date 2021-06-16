@@ -12,15 +12,31 @@ public class BattleConfiguration : ScriptableObject
 	public GameObject ProtectorPrefab;
 	public GameObject ExplosionPrefab;
 
+	[Range(1,3)]
 	public int PlayerHP = 3;
+	[Range(1,100)]
 	public int ProtectorHP = 5;
+	[Range(0, 100)]
 	public int ProtectorCount = 4;
-	public Vector2 BattlefieldBounds;
+	[Range(1f, 100f)]
+	public float BattlefieldWidth = 20;
+	[Range(1f, 100f)]
+	public float battlefieldHeight = 20;
+	[Range(1,100)]
+	public int FleetRows = 6;
+	[Range(1,100)]
+	public int FleetColumns = 12;
+	[Range(0f,100f)]
 	public float FleetFormationInterval = 5;
+	[Range(1,100)]
 	public int EnemyHP = 1;
+	[Range(1,100)]
 	public int PlayerProjectileDamage = 1;
+	[Range(1, 100)]
 	public int EnemyProjectileDamage = 1;
+	[Range(0f,100f)]
 	public float PlayerTopSpeed = 3;
+	[Range(0f,100f)]
 	public float EnemyTopSpeed = 1;
 
 	

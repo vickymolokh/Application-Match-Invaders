@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 967edb1313dfa5f4b975f3340a41e307, type: 3}
-  m_Name: BattleConfig
+  m_Name: DefaultBattleConfig
   m_EditorClassIdentifier: 
   PlayerShipPrefab: {fileID: 0}
   PlayerProjectilePrefab: {fileID: 0}
@@ -18,13 +18,16 @@ MonoBehaviour:
   EnemyProjectilePrefab: {fileID: 0}
   ProtectorPrefab: {fileID: 0}
   ExplosionPrefab: {fileID: 0}
-  PlayerHP: 0
-  ProtectorHP: 0
-  ProtectorCount: 0
-  BattlefieldBounds: {x: 0, y: 0}
-  FleetFormationInterval: 0
-  EnemyHP: 0
-  PlayerProjectileDamage: 0
-  EnemyProjectileDamage: 0
-  PlayerTopSpeed: 0
-  EnemyTopSpeed: 0
+  PlayerHP: 3
+  ProtectorHP: 5
+  ProtectorCount: 4
+  BattlefieldWidth: 20
+  battlefieldHeight: 20
+  FleetRows: 6
+  FleetColumns: 12
+  FleetFormationInterval: 5
+  EnemyHP: 1
+  PlayerProjectileDamage: 1
+  EnemyProjectileDamage: 1
+  PlayerTopSpeed: 3
+  EnemyTopSpeed: 1

@@ -25,6 +25,7 @@ namespace Match_Invaders.Logic
 		public void ConfigureShip(BattleConfiguration config, IPlayerShipInput inputSys, IPlayerCannon cannonWeapon)
 		{
 			_config = config;
+			HP = config.PlayerHP;
 			_inputSystem = inputSys;
 			_playerShipCannon = cannonWeapon;
 		}
@@ -33,7 +34,13 @@ namespace Match_Invaders.Logic
 
 		public void Update()
 		{
-			if (null != _inputSystem)
+			bool beyondBattlefieldEdge = Mathf.Abs(transform.position.x) > _config.BattlefieldWidth;
+			if (beyondBattlefieldEdge)
+			{
+				Vector3 compensationDirection = transform.position.x > 0 ? Vector3.left : Vector3.right;
+				CachedRigidbody.velocity = compensationDirection * _config.PlayerShipSpeed;
+			}
+			else if (null != _inputSystem)
 			{
 				CachedRigidbody.velocity = _config.PlayerShipSpeed * _inputSystem.XAxis * Vector3.right;
 				if (_inputSystem.IsTriggerButtonHeld)

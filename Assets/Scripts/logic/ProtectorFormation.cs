@@ -6,6 +6,14 @@ namespace Match_Invaders.Logic
 
 		int _hitPointsToSet;
 
+		public static ProtectorFormation CreateProtectorFormation(BattleConfiguration config)
+		{
+			GameObject go = new GameObject("Protector Formation");
+			ProtectorFormation formation = go.AddComponent<ProtectorFormation>();
+			formation.FillBasedOnConfig(config);
+			return formation;
+		}
+
 		public void FillBasedOnConfig(BattleConfiguration _config) => FillBasedOnConfigData(_config.BattlefieldWidth, _config.BattlefieldHeight, _config.FleetFormationInterval, _config.ProtectorCount, _config.ProtectorHP);
 		public void FillBasedOnConfigData(float boundsWidth, float boundsHeight, float mainGridInterval, int count, int hitPoints)
 		{

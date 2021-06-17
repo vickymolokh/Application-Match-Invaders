@@ -2,7 +2,7 @@
 
 namespace Match_Invaders.Logic
 {
-	public class PlayerShipInput : MonoBehaviour, IPlayerShipInput
+	public class StandardPlayerShipInput : IPlayerShipInput
 	{
 		public float XAxis
 		{

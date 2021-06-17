@@ -15,14 +15,10 @@ namespace Match_Invaders.Logic
 		public delegate void BattlefieldClearedDelegate();
 		public BattlefieldClearedDelegate OnBattlefieldCleared;
 
-
-		public BattleConfiguration _config;
-
-
-		public FleetBehaviour Instantiate(BattleConfiguration config)
+		public static FleetBehaviour CreateFleet(BattleConfiguration config)
 		{
 			FleetBehaviour fleet = new GameObject("FleetBehaviour").AddComponent<FleetBehaviour>();
-			fleet._config = config;
+			fleet.AssembleFleet(config);
 			return fleet;
 		}
 
@@ -68,5 +64,7 @@ namespace Match_Invaders.Logic
 			_cannons?.TryShoot();
 			_mover?.MaintainMovement();
 		}
+
+		public void OnDestroy() => DestroyFleet();
 	}
 }

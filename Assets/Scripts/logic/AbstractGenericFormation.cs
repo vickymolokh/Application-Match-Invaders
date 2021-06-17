@@ -36,7 +36,10 @@ namespace Match_Invaders.Logic
 		{
 			foreach (TPrototype oldSpawn in _coordMap.Values)
 			{
-				Pool.StashUnusedObject(oldSpawn);
+				if (null != oldSpawn)
+				{
+					Pool.StashUnusedObject(oldSpawn);
+				}
 			}
 			_coordMap.Clear();
 		}

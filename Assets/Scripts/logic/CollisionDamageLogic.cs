@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Match_Invaders.Logic
 {
-	class StandardCollisionDamageLogic : ICollisionDamageLogic
+	public class StandardCollisionDamageLogic : ICollisionDamageLogic
 	{
 		public void HandleCollisionEvent<T>(AbstractSpaceObject<T> sender, Collider otherCollider) where T : AbstractSpaceObject<T>
 		{
@@ -19,13 +19,15 @@ namespace Match_Invaders.Logic
 			}
 			// we might want to implement non-mutual annihilations here later if the client requests an expansion of interaction types.
 
-			if (AnnihilatingPairs.Any(o => o.Contains(obj1.GetAffiliation()))
-				&&
-				AnnihilatingPairs.Any(o => o.Contains(obj2.GetAffiliation())))
+			if (DoTheseTwoAnnihilateEachOther(obj1, obj2)
+				)
 			{
 				ApplyMutualDamage(obj1, obj2);
 			}
 		}
+
+		public static bool DoTheseTwoAnnihilateEachOther(IDamageable obj1, IDamageable obj2) => AnnihilatingPairs.Any
+						(o => o.Contains(obj1.GetAffiliation()) && o.Contains(obj2.GetAffiliation()));
 
 		private void ApplyMutualDamage(IDamageable obj1, IDamageable obj2)
 		{
@@ -39,13 +41,13 @@ namespace Match_Invaders.Logic
 		}
 
 		// a ruleset listing which pairs of affiliations lead to mutual annihilation (damage)
-		readonly List<List<Affiliations>> AnnihilatingPairs = new List<List<Affiliations>>()
+		static readonly List<List<Affiliations>> AnnihilatingPairs = new List<List<Affiliations>>()
 			{
 			// bullets of different alignments annihilate each other
 			new List<Affiliations>{ Affiliations.PlayerProjectile, Affiliations.EnemyProjectile},
 			// player bullets damage protectors and enemies
 			new List<Affiliations>{ Affiliations.PlayerProjectile, Affiliations.ProtectorNeutral},
-			new List<Affiliations>{ Affiliations.PlayerProjectile, Affiliations.EnemyProjectile},
+			new List<Affiliations>{ Affiliations.PlayerProjectile, Affiliations.EnemyShip},
 			// enemy bullets damage protectors and players
 			new List<Affiliations>{ Affiliations.EnemyProjectile, Affiliations.PlayerShip},
 			new List<Affiliations>{ Affiliations.EnemyProjectile, Affiliations.ProtectorNeutral},

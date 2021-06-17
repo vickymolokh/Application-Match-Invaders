@@ -34,7 +34,7 @@ namespace Match_Invaders.Logic
 
 		public void Update()
 		{
-			bool beyondBattlefieldEdge = Mathf.Abs(transform.position.x) > _config.BattlefieldWidth;
+			bool beyondBattlefieldEdge = Mathf.Abs(transform.position.x) > _config.BattlefieldWidth/2f;
 			if (beyondBattlefieldEdge)
 			{
 				Vector3 compensationDirection = transform.position.x > 0 ? Vector3.left : Vector3.right;

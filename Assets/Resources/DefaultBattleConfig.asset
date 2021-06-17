@@ -26,7 +26,7 @@ MonoBehaviour:
     type: 3}
   PlayerHP: 3
   MinPlayerShootDelay: 0.5
-  PlayerProjectileSpeed: 0
+  PlayerProjectileSpeed: 4
   MaxActivePlayerProjectiles: 1
   PlayerProjectileDamage: 1
   ProtectorHP: 5
@@ -42,5 +42,5 @@ MonoBehaviour:
   EnemyTopSpeed: 3
   MinEnemyShootDelay: 0.5
   MaxEnemyShootDelay: 2
-  EnemyProjectileSpeed: 2
+  EnemyProjectileSpeed: 4
   MaxActiveEnemyProjectiles: 5

@@ -54,12 +54,19 @@ namespace Match_Invaders.Logic
 		{
 			foreach (T activeElement in _activeList)
 			{
-				UnityEngine.Object.Destroy(activeElement.gameObject);
+				if (activeElement != null)
+				{
+					UnityEngine.Object.Destroy(activeElement.gameObject);
+				}
 			}
 			_activeList.Clear();
 			while(_stashedObjectStack.Count>0)
 			{
-				UnityEngine.Object.Destroy(_stashedObjectStack.Pop());
+				T pop = _stashedObjectStack.Pop();
+				if (null != pop)
+				{
+					UnityEngine.Object.Destroy(pop.gameObject);
+				}
 			}
 		}
 	}

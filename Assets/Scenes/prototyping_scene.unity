@@ -1155,7 +1155,7 @@ MonoBehaviour:
   _HUDCanvasGroup: {fileID: 461377144}
   _yourScoreText: {fileID: 100210018}
   _highScoreText: {fileID: 715389878}
-  _playerHPText: {fileID: 353245478}
+  _playerHPText: {fileID: 1985355424}
   _levelText: {fileID: 353245478}
   _markOfTheContender: {fileID: 1479021259}
   _markOfTheChampion: {fileID: 1479021259}
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aa92c1cf9036d4fbb914e544dffe90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _HUD: {fileID: 0}
+  _HUD: {fileID: 536118708}
   _menu: {fileID: 536118709}
 --- !u!1 &558464103
 GameObject:

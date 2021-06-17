@@ -90,11 +90,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4172513664817452982}
+  - component: {fileID: 6231879071400201095}
   - component: {fileID: 4172513664817452983}
   - component: {fileID: 4172513664817452984}
   - component: {fileID: 4172513664817452985}
   - component: {fileID: 5695501626421798537}
-  - component: {fileID: 6231879071400201095}
   m_Layer: 0
   m_Name: PlayerShipCapsule
   m_TagString: Untagged
@@ -117,6 +117,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &6231879071400201095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172513664817452986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da6aa59dcc013c4caa0edd8b1ddce29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 1
 --- !u!33 &4172513664817452983
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -196,16 +209,3 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 3
---- !u!114 &6231879071400201095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4172513664817452986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da6aa59dcc013c4caa0edd8b1ddce29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Affiliation: 1

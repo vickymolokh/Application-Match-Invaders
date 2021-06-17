@@ -4,7 +4,7 @@ namespace Match_Invaders.Logic
 	public class Projectile : AbstractSpaceObject<Projectile>
 	{
 		public BattleConfiguration Config;
-		public GenericObjectPool<Projectile> ReturnToPool;
+		public GenericObjectPool<Projectile> TargetPoolToReturnToAutomatically;
 
 		public void Update()
 		{
@@ -12,7 +12,22 @@ namespace Match_Invaders.Logic
 			bool outsideBoundsZ = Mathf.Abs(transform.position.z) > Mathf.Abs(Config.BattlefieldHeight/2f);
 			if (outsideBoundsX || outsideBoundsZ)
 			{
-				ReturnToPool.StashUnusedObject(this);
+				ReturnToParentPool(this);
+			}
+		}
+
+		public void SetPoolToReturnToAutomatically(GenericObjectPool<Projectile> pool)
+		{
+			TargetPoolToReturnToAutomatically = pool;
+			OnKilled += ReturnToParentPool;
+		}
+		public void ReturnToParentPool(Projectile projectile)
+		{
+			if (null != TargetPoolToReturnToAutomatically)
+			{
+				OnKilled -= ReturnToParentPool;
+				TargetPoolToReturnToAutomatically.StashUnusedObject(this);
+				TargetPoolToReturnToAutomatically = null; 
 			}
 		}
 		public Vector3 Velocity

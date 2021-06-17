@@ -22,7 +22,7 @@ namespace Match_Invaders.Logic
 		[Range(0f, 100f)]
 		public float MinPlayerShootDelay = 0.5f;
 		[Range(0.001f, 100f)]
-		public float PlayerProjectileSpeed;
+		public float PlayerProjectileSpeed = 2f;
 		[Range(1, 100)]
 		public int MaxActivePlayerProjectiles = 1;
 		[Range(1, 100)]

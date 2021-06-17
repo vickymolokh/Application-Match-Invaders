@@ -8,8 +8,9 @@ namespace Match_Invaders.Logic
 
 		public static ProtectorFormation CreateProtectorFormation(BattleConfiguration config)
 		{
-			GameObject go = new GameObject("Protector Formation");
-			ProtectorFormation formation = go.AddComponent<ProtectorFormation>();
+			ProtectorFormation formation = InstantiateFormationOrigin(Vector3.zero, config.ProtectorPrefab, "ProtectorFormation");
+			//GameObject go = new GameObject("Protector Formation");
+			//ProtectorFormation formation = go.AddComponent<ProtectorFormation>();
 			formation.FillBasedOnConfig(config);
 			return formation;
 		}
@@ -22,7 +23,7 @@ namespace Match_Invaders.Logic
 			float protectorIntervalHorizontal = boundsWidth / (count + 2); // no protectors on playzone edges
 			float formationOriginX = (-boundsWidth / 2f) + protectorIntervalHorizontal;
 
-			float formationOriginZ = (-boundsHeight / 2f) + mainGridInterval;
+			float formationOriginZ = (-boundsHeight / 2f) + (2*mainGridInterval);
 
 			transform.position = new Vector3(formationOriginX, 0, formationOriginZ);
 			Vector2Int countXoneGrid = new Vector2Int(count, 1);

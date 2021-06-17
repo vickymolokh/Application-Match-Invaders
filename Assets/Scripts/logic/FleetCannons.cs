@@ -33,7 +33,7 @@ namespace Match_Invaders.Logic
 		{
 			Vector3 origin = _fleetFormation.GetRandomFrontlineShip().transform.position;
 			Projectile projectile = ProjectilePool.ProvideObject(null, origin, true);
-			projectile.ReturnToPool = ProjectilePool;
+			projectile.SetPoolToReturnToAutomatically(ProjectilePool);
 			projectile.Config = _config;
 			projectile.Velocity = Vector3.back * _config.EnemyProjectileSpeed;
 			projectile.HP = _config.EnemyProjectileDamage;

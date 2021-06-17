@@ -16,7 +16,7 @@ namespace Match_Invaders.Logic
 
 		public void TryShoot()
 		{
-			bool maxProjectilesSatisfied = ActiveObjectsCount > _config.MaxActivePlayerProjectiles;
+			bool maxProjectilesSatisfied = ActiveObjectsCount < _config.MaxActivePlayerProjectiles;
 			bool cooldownSatisfied = Time.time >= _nextPossibleShotTime;
 			if (maxProjectilesSatisfied && cooldownSatisfied)
 			{
@@ -29,7 +29,7 @@ namespace Match_Invaders.Logic
 			Vector3 originPoint = _projectileOrigin.transform.position;
 			Projectile projectile = ProvideObject(null, originPoint, true);
 			projectile.Velocity = Vector3.forward * _config.PlayerProjectileSpeed;
-			projectile.ReturnToPool = this;
+			projectile.SetPoolToReturnToAutomatically(this);
 			projectile.Config = _config;
 			projectile.HP = _config.PlayerProjectileDamage;
 			_nextPossibleShotTime = Time.time + _config.MinPlayerShootDelay;

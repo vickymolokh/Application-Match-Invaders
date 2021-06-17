@@ -50,11 +50,11 @@ namespace Match_Invaders.Logic
 		{
 			float lowerBattlefieldEdge = -config.BattlefieldHeight / 2f;
 			float playerZpos = lowerBattlefieldEdge + config.FleetFormationInterval; // ensure a neat grid where all major positions are divisible by FleetInterval and match horizontal movement rows
-			Vector3 playerPos = Vector3.back*playerZpos;
+			Vector3 playerPos = Vector3.forward*playerZpos;
 			GameObject go = Object.Instantiate(config.PlayerShipPrefab.gameObject, playerPos, config.PlayerShipPrefab.transform.rotation);
 			PlayerShipBehaviour playerShipBhv = go.GetComponent<PlayerShipBehaviour>();
 			IPlayerShipInput inputSys = new StandardPlayerShipInput();
-			IPlayerCannon cannon = new StandardPlayerShipCannon(config, _playerShip.transform);
+			IPlayerCannon cannon = new StandardPlayerShipCannon(config, playerShipBhv.transform);
 			playerShipBhv.ConfigureShip(config, inputSys, cannon);
 			return playerShipBhv;
 		}

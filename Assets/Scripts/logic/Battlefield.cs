@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Match_Invaders.Logic
 {
-	public class BattlefieldBuilder // note: it makes things more readable to have builder and destroyer in the same place
+	public class Battlefield // note: it makes things more readable to have builder and destroyer in the same place
 	{
 		private readonly BattleConfiguration _config;
 		private readonly FleetBehaviour _fleetBehaviour;
@@ -14,7 +14,11 @@ namespace Match_Invaders.Logic
 		private readonly IBattlefieldClearedReceiver _battlefieldClearedReportReceiver;
 		private readonly PlayerShipBehaviour _playerShip;
 
-		public BattlefieldBuilder(BattleConfiguration config, IKillReportReceiver killReceiver, IPlayerShipDamageReportReceiver playerDamageReceiver, IBattlefieldClearedReceiver battlefieldClearReceiver)
+		public Battlefield(BattleConfiguration config, ICombinedBattlefieldReportReceiver combinedReceiver) : this(config, combinedReceiver, combinedReceiver, combinedReceiver)
+		{ } // I initially considered having separate receivers, but in retrospect a different approach seems more practical.
+
+
+		public Battlefield(BattleConfiguration config, IKillReportReceiver killReceiver, IPlayerShipDamageReportReceiver playerDamageReceiver, IBattlefieldClearedReceiver battlefieldClearReceiver)
 		{
 			_config = config;
 			_fleetBehaviour = FleetBehaviour.CreateFleet(_config);

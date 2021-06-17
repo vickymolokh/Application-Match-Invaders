@@ -29,7 +29,7 @@ namespace Match_Invaders.Logic.Tests
 			//1 ship = 1 * 10 = 10 points
 			//2 ships = 2 * 20 = 40 points
 			//3 ships = 3 * 30 = 90 points
-			//4 ships = 4 * 50 = 90 points
+			//4 ships = 4 * 50 = 90 points [sic]
 			//5 ships = 5 * 80 = 400 points
 			Dictionary<int, int> killsAndReferenceScores = new Dictionary<int, int>
 			{
@@ -39,6 +39,25 @@ namespace Match_Invaders.Logic.Tests
 				{4, 90 }, // this should be 200, but PRD says 90. The client will be informed.
 				{5, 400 },
 			};
+			CompareReferenceAndCalculatedScoreIncreases(killsAndReferenceScores);
+		}
+
+		[Test]
+		public void ScoreIncreaseCalculationTestPassesWithCorrectedNumbers()
+		{
+			Dictionary<int, int> killsAndReferenceScores = new Dictionary<int, int>
+			{
+				{1, 10},
+				{2, 40 },
+				{3, 90 },
+				{4, 200 }, // with adjusted reference number
+				{5, 400 },
+			};
+			CompareReferenceAndCalculatedScoreIncreases(killsAndReferenceScores);
+		}
+
+			private static void CompareReferenceAndCalculatedScoreIncreases(Dictionary<int, int> killsAndReferenceScores)
+		{
 			foreach (KeyValuePair<int, int> pair in killsAndReferenceScores)
 			{
 				int calculatedScoreIncrease = StandardScoreBoard.ScoreIncreaseForNKills(pair.Key);

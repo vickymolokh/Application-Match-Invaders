@@ -133,7 +133,6 @@ namespace Match_Invaders.Logic
 		{
 			_gameState = States.LevelFailedMenu;
 			PausedTimeScale = true; // freeze and show last 'frame'
-			HUDUpdater.HideHUD();
 			UIMenu.ShowDefeatMenu();
 		}
 
@@ -147,7 +146,6 @@ namespace Match_Invaders.Logic
 		{
 			_gameState = States.LevelClearedMenu;
 			PausedTimeScale = true; // freeze and show last 'frame'
-			HUDUpdater.HideHUD();
 			UIMenu.ShowVictoryMenu();
 		}
 
@@ -163,16 +161,12 @@ namespace Match_Invaders.Logic
 		public void KillsOccurredCallbackReceiver(int killsInOneGo)
 		{
 			ScoreBoard.AdjustCurrentScoreForKills(killsInOneGo);
+			
 			AdjustHUDScore();
 		}
 
 		private void AdjustHUDScore()
 		{
-			bool currentScoreIsHighest = ScoreBoard.HighScore <= ScoreBoard.CurrentScore;
-			HUDUpdater.MarkOfTheChampion = currentScoreIsHighest;
-			float closeEnoughMultiplier = 0.9f;
-			bool approachingHighScore = ScoreBoard.CurrentScore > (float)ScoreBoard.HighScore * closeEnoughMultiplier;
-			HUDUpdater.MarkOfTheContender = !currentScoreIsHighest && approachingHighScore;
 			HUDUpdater.CurrentScore = ScoreBoard.CurrentScore;
 			HUDUpdater.HighScore = ScoreBoard.HighScore;
 		}

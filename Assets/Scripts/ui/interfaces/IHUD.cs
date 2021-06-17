@@ -8,7 +8,5 @@ namespace Match_Invaders.UI
 		int CurrentLevel { set; }
 		int CurrentScore { set; }
 		int HighScore { set; }
-		bool MarkOfTheChampion { set; }
-		bool MarkOfTheContender { set; }
 	}
 }

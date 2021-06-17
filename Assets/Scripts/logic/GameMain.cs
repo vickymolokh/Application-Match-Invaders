@@ -15,7 +15,7 @@ namespace Match_Invaders.Logic
 		public UIMenu _menu;
 		public IHUDUpdater HUDUpdater => _HUD;
 		public IUIMenu UIMenu => _menu;
-		public IScoreBoard ScoreBoard = new StandardScoreBoard();
+		public IScoreBoard ScoreBoard; // = new StandardScoreBoard();
 
 		private enum States
 		{

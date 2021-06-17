@@ -66,6 +66,31 @@ namespace Match_Invaders.Logic.Tests
 			}
 		}
 
+		[Test]
+		public void PersistenceTest()
+		{
+			int cachedOriginalScore = -1;
+			try
+			{
+				StandardScoreBoard boardA = new StandardScoreBoard();
+				cachedOriginalScore = boardA.HighScore;
+
+				int increasedScore = cachedOriginalScore + 1;
+				boardA.HighScore = increasedScore;
+
+				StandardScoreBoard boardB = new StandardScoreBoard();
+				Assert.IsTrue(increasedScore == boardB.HighScore);
+			}
+			finally 
+			{
+				if (cachedOriginalScore >= 0)
+				{
+					StandardScoreBoard finalBoard = new StandardScoreBoard();
+					finalBoard.HighScore = cachedOriginalScore;
+				}
+			}
+		}
+
 
 
 		// A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

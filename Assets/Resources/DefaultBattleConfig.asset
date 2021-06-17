@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967edb1313dfa5f4b975f3340a41e307, type: 3}
   m_Name: DefaultBattleConfig
   m_EditorClassIdentifier: 
-  PlayerShipPrefab: {fileID: 0}
+  PlayerShipPrefab: {fileID: 6231879071400201095, guid: 77868fdada6b3b64782693817fda2b5d,
+    type: 3}
   PlayerProjectilePrefab: {fileID: -8062731383281904969, guid: 423de4be121e952428e0b702e3584c9b,
     type: 3}
   EnemyShipPrefab: {fileID: -5924073814913709672, guid: d57b71e28e9f07043bd5a04d8de46457,
     type: 3}
   EnemyProjectilePrefab: {fileID: -2099055847926814620, guid: e3410ddd889d932468c11b05f4cb437d,
     type: 3}
-  ProtectorPrefab: {fileID: 0}
-  ExplosionPrefab: {fileID: 0}
+  ProtectorPrefab: {fileID: 8259747082260344517, guid: e476b2ae017bea746a6cd1406f8653ed,
+    type: 3}
+  ExplosionPrefab: {fileID: 9119626340499797951, guid: c550c889c9ce698468f6f12fdadef117,
+    type: 3}
   PlayerHP: 3
   MinPlayerShootDelay: 0.5
   PlayerProjectileSpeed: 0
@@ -36,7 +39,7 @@ MonoBehaviour:
   EnemyHP: 1
   EnemyProjectileDamage: 1
   PlayerShipSpeed: 3
-  EnemyTopSpeed: 100
+  EnemyTopSpeed: 3
   MinEnemyShootDelay: 0.5
   MaxEnemyShootDelay: 2
   EnemyProjectileSpeed: 2

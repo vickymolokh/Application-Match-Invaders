@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Match_Invaders.UI;
+using System;
 
 namespace Match_Invaders.Logic
 {
@@ -10,12 +11,12 @@ namespace Match_Invaders.Logic
 		private BattleConfiguration _config;
 		private int _currentLevel;
 		[SerializeField]
-		public UIHUD _HUD;
+		private UIHUD _HUD;
 		[SerializeField]
-		public UIMenu _menu;
+		private UIMenu _menu;
 		public IHUDUpdater HUDUpdater => _HUD;
 		public IUIMenu UIMenu => _menu;
-		public IScoreBoard ScoreBoard; // = new StandardScoreBoard();
+		public IScoreBoard ScoreBoard; // this needs to be delayed until full init due to persistent data path access
 
 		private enum States
 		{
@@ -67,6 +68,7 @@ namespace Match_Invaders.Logic
 			_battlefieldBuilder = new Battlefield(_config, this);
 			HUDUpdater.CurrentLevel = level;
 			HUDUpdater.PlayerHP = _config.PlayerHP;
+			HUDUpdater.ShowHUD();
 		}
 
 		private void CleanBattlefieldIfNeeded()
@@ -98,18 +100,21 @@ namespace Match_Invaders.Logic
 			_gameState = States.MainMenu;
 			UIMenu.ShowMainMenu();
 			ScoreBoard.CurrentScore = 0;
+			HUDUpdater.HideHUD();
 		}
 
 		public void GoToDefeatMenu()
 		{
 			_gameState = States.LevelFailedMenu;
 			PausedTimeScale = true; // freeze and show last 'frame'
+			HUDUpdater.HideHUD();
 		}
 
 		public void GoToVictoryMenu()
 		{
 			_gameState = States.LevelClearedMenu;
 			PausedTimeScale = true; // freeze and show last 'frame'
+			HUDUpdater.HideHUD();
 		}
 
 		public void GoToNextLevel()
@@ -121,7 +126,20 @@ namespace Match_Invaders.Logic
 		public void QuitImmediately() => Application.Quit();
 
 		public void BattlefieldClearedCallbackReceiver() => GoToVictoryMenu();
-		public void KillsOccurredCallbackReceiver(int killsInOneGo) => ScoreBoard.AdjustCurrentScoreForKills(killsInOneGo);
+		public void KillsOccurredCallbackReceiver(int killsInOneGo)
+		{
+			ScoreBoard.AdjustCurrentScoreForKills(killsInOneGo);
+			AdjustHUDScore();
+		}
+
+		private void AdjustHUDScore()
+		{
+			bool currentScoreIsHighest = ScoreBoard.HighScore <= ScoreBoard.CurrentScore;
+			HUDUpdater.MarkOfTheChampion = currentScoreIsHighest;
+			float closeEnoughMultiplier = 0.9f;
+			bool approachingHighScore = ScoreBoard.CurrentScore > (float)ScoreBoard.HighScore * closeEnoughMultiplier;
+			HUDUpdater.MarkOfTheContender = !currentScoreIsHighest && approachingHighScore;
+		}
 
 		public void PlayerDamagedCallbackReceiver(PlayerShipBehaviour sender)
 		{
@@ -138,6 +156,9 @@ namespace Match_Invaders.Logic
 			switch (_gameState)
 			{
 				case States.Init:
+					ScoreBoard = new StandardScoreBoard();
+					UIMenu.SetHighScore(ScoreBoard.HighScore);
+					ScoreBoard.OnHighScoreChanged += UIMenu.SetHighScore; // subscribe for subsequent changes
 					GoToMainMenu();
 					break;
 				case States.MainMenu: // leaving this for clarity only
@@ -177,7 +198,6 @@ namespace Match_Invaders.Logic
 					break;
 			}
 		}
-
 		private bool ConfirmKeyDown => Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter);
 		private bool EscapeKeyDown => Input.GetKeyDown(KeyCode.Escape);
 	}

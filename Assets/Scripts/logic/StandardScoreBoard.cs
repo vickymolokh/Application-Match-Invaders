@@ -2,10 +2,7 @@
 {
 	public class StandardScoreBoard : IScoreBoard
 	{
-		public StandardScoreBoard()
-		{
-			LoadFromDisk();
-		}
+		public StandardScoreBoard() => TryLoadFromDisk();
 
 		private int _currentScore;
 		public int CurrentScore
@@ -22,7 +19,8 @@
 		}
 
 		public int _highScore;
-		private static int killFormulaMultiplier;
+
+		public event HighScoreChangedDelegate OnHighScoreChanged;
 
 		public int HighScore
 		{
@@ -30,7 +28,8 @@
 			set // this is public to support score resetting
 			{
 				_highScore = value;
-				//SaveToDisk();
+				OnHighScoreChanged?.Invoke(_highScore);
+				SaveToDisk();
 			}
 		}
 
@@ -54,17 +53,37 @@
 			// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
 			int prePrevious = 0;
 			int previous = 1;
-			int currentSum = 0;
-			for(int i = 1; i <= count; i++)
+			for (int i = 1; i <= count; i++)
 			{
-				currentSum = prePrevious + previous;
+				int currentSum = prePrevious + previous;
 				prePrevious = previous;
 				previous = currentSum;
 			}
 			return prePrevious;
 		}
 
-		public void LoadFromDisk() => throw new System.NotImplementedException();
-		public void SaveToDisk() => throw new System.NotImplementedException();
+		private string HighScorePathAndFile => UnityEngine.Application.persistentDataPath +"/HighScore.txt";
+		public void TryLoadFromDisk()
+		{
+			if (System.IO.File.Exists(HighScorePathAndFile))
+			{
+				string text = System.IO.File.ReadAllText(HighScorePathAndFile);
+				UnityEngine.Debug.Log("Successfully read score text: " + text);
+				if (int.TryParse(text, out int result))
+				{
+					HighScore = result;
+				}
+			}
+			else
+			{
+				UnityEngine.Debug.Log("No HighScore.txt file found; starting from 0");
+			}
+		}
+
+		public void SaveToDisk()
+		{
+			string text = HighScore.ToString(); // for something more serious than one int, a JSON would be appropriate
+			System.IO.File.WriteAllText(HighScorePathAndFile, text);
+		}
 	}
 }

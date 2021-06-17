@@ -7,5 +7,6 @@ namespace Match_Invaders.UI
 		void ShowMainMenu();
 		void ShowVictoryMenu();
 		void ShowDefeatMenu();
+		void SetHighScore(int score);
 	}
 }

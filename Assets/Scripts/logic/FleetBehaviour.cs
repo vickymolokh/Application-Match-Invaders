@@ -42,7 +42,7 @@ namespace Match_Invaders.Logic
 			OnKillsOccurred?.Invoke(killCount);
 			if (enemiesRemaining <= 0)
 			{
-				OnBattlefieldCleared?.Invoke();
+				OnBattlefieldCleared?.Invoke(); // note that this should always be invoked *after* the kills report
 			}
 		}
 

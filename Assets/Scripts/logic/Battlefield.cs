@@ -67,9 +67,15 @@ namespace Match_Invaders.Logic
 
 		private void DestroyBattleElements()
 		{
-			Object.Destroy(_fleetBehaviour.gameObject);
+			if (null != _fleetBehaviour)
+			{
+				Object.Destroy(_fleetBehaviour.gameObject);
+			}
 			_protectorFormation.DestroyAllPoolObjects();
-			Object.Destroy(_playerShip.gameObject);
+			if (null != _playerShip)
+			{
+				Object.Destroy(_playerShip.gameObject);
+			}
 		}
 
 		private void UnsubscribeReporters()

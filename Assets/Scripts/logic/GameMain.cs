@@ -98,9 +98,9 @@ namespace Match_Invaders.Logic
 			PausedTimeScale = false; // avoid keeping TS0.
 			CleanBattlefieldIfNeeded();
 			_gameState = States.MainMenu;
-			UIMenu.ShowMainMenu();
 			ScoreBoard.CurrentScore = 0;
 			HUDUpdater.HideHUD();
+			UIMenu.ShowMainMenu();
 		}
 
 		public void GoToDefeatMenu()
@@ -108,6 +108,7 @@ namespace Match_Invaders.Logic
 			_gameState = States.LevelFailedMenu;
 			PausedTimeScale = true; // freeze and show last 'frame'
 			HUDUpdater.HideHUD();
+			UIMenu.ShowDefeatMenu();
 		}
 
 		public void GoToVictoryMenu()
@@ -115,6 +116,7 @@ namespace Match_Invaders.Logic
 			_gameState = States.LevelClearedMenu;
 			PausedTimeScale = true; // freeze and show last 'frame'
 			HUDUpdater.HideHUD();
+			UIMenu.ShowVictoryMenu();
 		}
 
 		public void GoToNextLevel()

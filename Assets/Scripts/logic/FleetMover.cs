@@ -109,8 +109,9 @@ namespace Match_Invaders.Logic
 		private float LowestShipZ() => LiveShips().Min(o => o.transform.position.z);
 		private bool FleetTooLow()
 		{
-			float lowerBoundPlusInterval = _config.FleetFormationInterval + (-_config.BattlefieldHeight / 2f);
-			return LowestShipZ() <= lowerBoundPlusInterval;
+			const int intervalsSafetyMarginMultiplier = 3;
+			float lowerBoundPlusIntervals = _config.FleetFormationInterval*intervalsSafetyMarginMultiplier + (-_config.BattlefieldHeight / 2f);
+			return LowestShipZ() <= lowerBoundPlusIntervals;
 		}
 
 		private void AutoChooseMovementDirection()

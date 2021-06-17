@@ -60,12 +60,14 @@ namespace Match_Invaders.Logic
 		}
 
 		internal EnemyShipBehaviour GetRandomFrontlineShip()
-		{
-			List<int> columnsWithLiveShips = _coordMap.Where(o => o.Value.HP > 0).Select(o => o.Key.x).Distinct().ToList();
-			int randomColumn = UnityEngine.Random.Range(0, columnsWithLiveShips.Count);
-			IEnumerable<KeyValuePair<Vector2Int, EnemyShipBehaviour>> aliveInColumn = _coordMap.Where(o => o.Key.x == randomColumn && o.Value.HP > 0);
+		{;
+			IEnumerable<KeyValuePair<Vector2Int, EnemyShipBehaviour>> liveShips = _coordMap.Where(o => o.Value.HP > 0);
+			List<int> columnsWithLiveShips = liveShips.Select(o => o.Key.x).Distinct().ToList();
+			int randomIndexForColumnList = UnityEngine.Random.Range(0, columnsWithLiveShips.Count);
+			int randomActualColumnIndex = columnsWithLiveShips[randomIndexForColumnList];
+			IEnumerable<KeyValuePair<Vector2Int, EnemyShipBehaviour>> aliveInColumn = _coordMap.Where(o => o.Key.x == randomActualColumnIndex && o.Value.HP > 0);
 			int lowestRow = aliveInColumn.Min(o => o.Key.y);
-			return _coordMap[new Vector2Int(randomColumn, lowestRow)];
+			return _coordMap[new Vector2Int(randomActualColumnIndex, lowestRow)];
 		}
 
 		public Vector2Int GetCoords(EnemyShipBehaviour ship) => _coordMap.First(o => o.Value == ship).Key;

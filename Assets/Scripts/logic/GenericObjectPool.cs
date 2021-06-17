@@ -30,7 +30,13 @@ namespace Match_Invaders.Logic
 				return obj;
 			}
 		}
-
+		public void StashAll()
+		{
+			while (_activeList.Count>0)
+			{
+				StashUnusedObject(_activeList.First.Value);
+			}
+		}
 		public void StashUnusedObject(T element)
 		{
 			if (null == element)

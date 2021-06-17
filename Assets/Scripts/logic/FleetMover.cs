@@ -55,6 +55,11 @@ namespace Match_Invaders.Logic
 					float rightMostX = RightmostShipX();
 					if (rightMostX >= boundsXOffset)
 					{
+						if (FleetTooLow())
+						{
+							_movementState = MoveCycle.MoveLeft;
+							break;
+						}
 						_movementState = MoveCycle.MoveDown;
 					}
 					else
@@ -63,9 +68,14 @@ namespace Match_Invaders.Logic
 					}
 					break;
 				case MoveCycle.MoveLeft:
-					float leftMostX = _fleetFormation.Members.Min(o => o.transform.position.x);
+					float leftMostX = LeftmostShipX();
 					if (leftMostX <= -boundsXOffset)
 					{
+						if (FleetTooLow())
+						{
+							_movementState = MoveCycle.MoveRight;
+							break;
+						}
 						_movementState = MoveCycle.MoveDown;
 					}
 					else

@@ -34,13 +34,7 @@ namespace Match_Invaders.Logic
 		public TPrototype this[Vector2Int coordinate] => _coordMap[coordinate];
 		public void ClearFormation()
 		{
-			foreach (TPrototype oldSpawn in _coordMap.Values)
-			{
-				if (null != oldSpawn)
-				{
-					Pool.StashUnusedObject(oldSpawn);
-				}
-			}
+			Pool.StashAll();
 			_coordMap.Clear();
 		}
 

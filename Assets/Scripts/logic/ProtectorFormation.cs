@@ -20,7 +20,7 @@ namespace Match_Invaders.Logic
 		{
 			ClearFormation();
 			_hitPointsToSet = hitPoints;
-			float protectorIntervalHorizontal = boundsWidth / (count + 2); // no protectors on playzone edges
+			float protectorIntervalHorizontal = boundsWidth / (count + 1); // no protectors on playzone edges
 			float formationOriginX = (-boundsWidth / 2f) + protectorIntervalHorizontal;
 
 			float formationOriginZ = (-boundsHeight / 2f) + (2*mainGridInterval);

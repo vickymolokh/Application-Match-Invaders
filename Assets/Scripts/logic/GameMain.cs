@@ -68,6 +68,7 @@ namespace Match_Invaders.Logic
 			_battlefieldBuilder = new Battlefield(_config, this);
 			HUDUpdater.CurrentLevel = level;
 			HUDUpdater.PlayerHP = _config.PlayerHP;
+			AdjustHUDScore();
 			HUDUpdater.ShowHUD();
 		}
 
@@ -141,6 +142,8 @@ namespace Match_Invaders.Logic
 			float closeEnoughMultiplier = 0.9f;
 			bool approachingHighScore = ScoreBoard.CurrentScore > (float)ScoreBoard.HighScore * closeEnoughMultiplier;
 			HUDUpdater.MarkOfTheContender = !currentScoreIsHighest && approachingHighScore;
+			HUDUpdater.CurrentScore = ScoreBoard.CurrentScore;
+			HUDUpdater.HighScore = ScoreBoard.HighScore;
 		}
 
 		public void PlayerDamagedCallbackReceiver(PlayerShipBehaviour sender)

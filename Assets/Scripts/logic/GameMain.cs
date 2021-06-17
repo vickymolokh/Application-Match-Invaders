@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Match_Invaders.UI;
 using System;
+using System.Collections;
 
 namespace Match_Invaders.Logic
 {
@@ -18,6 +19,9 @@ namespace Match_Invaders.Logic
 		public IUIMenu UIMenu => _menu;
 		public IScoreBoard ScoreBoard; // this needs to be delayed until full init due to persistent data path access
 
+		private const int MainMenuSceneIndex = 1;
+		private const int GameplaySceneIndex = 2;
+
 		private enum States
 		{
 			Init = 0,
@@ -26,6 +30,7 @@ namespace Match_Invaders.Logic
 			PausedInGameMenu = 3,
 			LevelClearedMenu = 4,
 			LevelFailedMenu = 5,
+			Loading = 6
 		}
 
 		public bool PausedTimeScale // timescale operation only; not accounting for menus &c.
@@ -50,13 +55,22 @@ namespace Match_Invaders.Logic
 			_config = Resources.Load<BattleConfiguration>(DefaultConfigName);
 		}
 
-		public void StartGame()
+		public void StartGame() => StartCoroutine(LoadGameplayAsync());
+
+		private IEnumerator LoadGameplayAsync()
 		{
-			LoadConfig();
+			_gameState = States.Loading;
 			UIMenu.Hide();
+			AsyncOperation async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(GameplaySceneIndex);
+			while (!async.isDone)// just subscribing to complete is not always safe in practice, IME
+			{
+				yield return null;
+			}
 			_currentLevel = 1;
+			LoadConfig();
 			StartLevel(_currentLevel);
 		}
+
 
 		public void StartLevel(int level)
 		{
@@ -94,15 +108,26 @@ namespace Match_Invaders.Logic
 			_gameState = States.LevelPlaying;
 		}
 
-		public void GoToMainMenu()
+		public void GoToMainMenu() => StartCoroutine(GoToMainMenuCoroutine());
+		
+		private IEnumerator GoToMainMenuCoroutine()
 		{
+			_gameState = States.Loading;
 			PausedTimeScale = false; // avoid keeping TS0.
 			CleanBattlefieldIfNeeded();
 			_gameState = States.MainMenu;
+			UIMenu.Hide();
 			ScoreBoard.CurrentScore = 0;
 			HUDUpdater.HideHUD();
+
+			AsyncOperation async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(MainMenuSceneIndex);
+			while (!async.isDone) // just subscribing to complete is not always safe in practice, IME
+			{
+				yield return null;
+			}
 			UIMenu.ShowMainMenu();
 		}
+
 
 		public void GoToDefeatMenu()
 		{
@@ -110,6 +135,12 @@ namespace Match_Invaders.Logic
 			PausedTimeScale = true; // freeze and show last 'frame'
 			HUDUpdater.HideHUD();
 			UIMenu.ShowDefeatMenu();
+		}
+
+		public void RestartCurrentLevel() // restart level, but score drops to zero since you died
+		{
+			UIMenu.Hide();
+			StartLevel(_currentLevel);
 		}
 
 		public void GoToVictoryMenu()
@@ -162,6 +193,7 @@ namespace Match_Invaders.Logic
 			{
 				case States.Init:
 					ScoreBoard = new StandardScoreBoard();
+					DontDestroyOnLoad(gameObject);
 					UIMenu.SetHighScore(ScoreBoard.HighScore);
 					ScoreBoard.OnHighScoreChanged += UIMenu.SetHighScore; // subscribe for subsequent changes
 					GoToMainMenu();
@@ -194,7 +226,7 @@ namespace Match_Invaders.Logic
 				case States.LevelFailedMenu:
 					if (ConfirmKeyDown)
 					{
-						StartGame(); // retry
+						RestartCurrentLevel(); // retry
 					}
 					if (EscapeKeyDown)
 					{

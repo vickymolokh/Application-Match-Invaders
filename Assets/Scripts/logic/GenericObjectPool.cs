@@ -32,9 +32,16 @@ namespace Match_Invaders.Logic
 		}
 		public void StashAll()
 		{
-			while (_activeList.Count>0)
+			while (_activeList.Count > 0)
 			{
-				StashUnusedObject(_activeList.First.Value);
+				if (null == _activeList.First.Value)
+				{
+					_activeList.RemoveFirst();
+				}
+				else
+				{
+					StashUnusedObject(_activeList.First.Value);
+				}
 			}
 		}
 		public void StashUnusedObject(T element)
